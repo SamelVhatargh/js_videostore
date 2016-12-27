@@ -61,20 +61,35 @@ function statement(customer, movies, format) {
         for (let rental of customer.rentals) {
             let movie = getMovie(rental),
                 currentRentalAmount = getRentalAmount(rental);
-            result += `\t${movie.title}\t${currentRentalAmount}\n`;
+            if (format === 'html') {
+                result += `<li>${movie.title}\t${currentRentalAmount}</li>\n`;
+            } else {
+                result += `\t${movie.title}\t${currentRentalAmount}\n`;
+            }
+        }
+        if (format === 'html') {
+            result = '<ul>\n' + result + '</ul>\n';
         }
         return result;
     }
 
     function getHeader(customer, format) {
-        return `Rental Record for ${customer.name}\n`;
+        let result = `Rental Record for ${customer.name}`;
+        if (format === 'html') {
+            result = '<h1>' + result + '</h1>';
+        }
+        return result + `\n`;
     }
 
     function getFooter(customer, format) {
         let totalAmount = getTotalRentalAmount(customer),
-            totalFrequentRenterPoints = getTotalFrequentRenterPoints(customer),
-            result = `Amount owed is ${totalAmount}\n`;
+            totalFrequentRenterPoints = getTotalFrequentRenterPoints(customer);
+
+        let result = `Amount owed is ${totalAmount}\n`;
         result += `You earned ${totalFrequentRenterPoints} frequent renter points\n`;
+        if (format === 'html') {
+            result = '<p>' + result + '</p>';
+        }
         return result;
     }
 }
@@ -103,3 +118,4 @@ let movies = {
 };
 
 console.log(statement(customer, movies, 'txt'));
+console.log(statement(customer, movies, 'html'));

@@ -8,8 +8,7 @@ function statement(customer, movies) {
         let movie = getMovie(rental);
         let currentRentalAmount = getRentalAmount(rental);
 
-        //add frequent renter points
-        totalFrequentRenterPoints += getFrequentRenterPoints(rental);
+         totalFrequentRenterPoints += getFrequentRenterPoints(rental);
 
         //print figures for this rental
         result += `\t${movie.title}\t${currentRentalAmount}\n`;

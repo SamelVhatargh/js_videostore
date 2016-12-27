@@ -92,6 +92,10 @@ function statement(customer, movies, format) {
         }
         return result;
     }
+
+    function tag(name, string) {
+        return `<` + name + `>` + string + `</` + name +  `>`;
+    }
 }
 
 let customer = {

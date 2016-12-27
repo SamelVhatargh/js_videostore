@@ -3,7 +3,7 @@
 function statement(customer, movies) {
     let totalAmount = getTotalRentalAmount(customer);
     let totalFrequentRenterPoints = getTotalFrequentRenterPoints(customer);
-    let result = `Rental Record for ${customer.name}\n`;
+    let result = getHeader(customer);
 
     result += getRentalsPresentation(customer);
 
@@ -72,6 +72,10 @@ function statement(customer, movies) {
             result += `\t${movie.title}\t${currentRentalAmount}\n`;
         }
         return result;
+    }
+
+    function getHeader(customer) {
+        return `Rental Record for ${customer.name}\n`;
     }
 }
 

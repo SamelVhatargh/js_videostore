@@ -1,15 +1,11 @@
 "use strict";
 
 function statement(customer, movies) {
-    let totalAmount = getTotalRentalAmount(customer);
-    let totalFrequentRenterPoints = getTotalFrequentRenterPoints(customer);
     let result = getHeader(customer);
 
     result += getRentalsPresentation(customer);
 
-    // add footer lines
-    result += `Amount owed is ${totalAmount}\n`;
-    result += `You earned ${totalFrequentRenterPoints} frequent renter points\n`;
+    result += getFooter(customer);
 
     return result;
 
@@ -76,6 +72,14 @@ function statement(customer, movies) {
 
     function getHeader(customer) {
         return `Rental Record for ${customer.name}\n`;
+    }
+
+    function getFooter(customer) {
+        let totalAmount = getTotalRentalAmount(customer),
+            totalFrequentRenterPoints = getTotalFrequentRenterPoints(customer),
+            result = `Amount owed is ${totalAmount}\n`;
+        result += `You earned ${totalFrequentRenterPoints} frequent renter points\n`;
+        return result;
     }
 }
 

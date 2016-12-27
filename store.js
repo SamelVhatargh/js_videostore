@@ -1,7 +1,7 @@
 "use strict";
 
 function statement(customer, movies) {
-    let totalAmount = 0;
+    let totalAmount = getTotalRentalAmount(customer);
     let totalFrequentRenterPoints = 0;
     let result = `Rental Record for ${customer.name}\n`;
 
@@ -13,7 +13,6 @@ function statement(customer, movies) {
 
         //print figures for this rental
         result += `\t${movie.title}\t${currentRentalAmount}\n`;
-        totalAmount += currentRentalAmount;
     }
 
     // add footer lines
@@ -48,6 +47,15 @@ function statement(customer, movies) {
                 break;
         }
         return thisRentalAmount;
+    }
+
+    function getTotalRentalAmount(customer)
+    {
+        let totalAmount = 0;
+        for (let rental of customer.rentals) {
+            totalAmount += getRentalAmount(rental);
+        }
+        return totalAmount;
     }
 
     function getFrequentRenterPoints(rental) {

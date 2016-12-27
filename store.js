@@ -1,9 +1,9 @@
 "use strict";
 
-function statement(customer, movies) {
-    return getHeader(customer)
-        + getRentalsPresentation(customer)
-        + getFooter(customer);
+function statement(customer, movies, format) {
+    return getHeader(customer, format)
+        + getRentalsPresentation(customer, format)
+        + getFooter(customer, format);
 
     function getMovie(rental) {
         return movies[rental.movieID];
@@ -56,7 +56,7 @@ function statement(customer, movies) {
         return totalFrequentRenterPoints;
     }
 
-    function getRentalsPresentation(customer) {
+    function getRentalsPresentation(customer, format) {
         let result = '';
         for (let rental of customer.rentals) {
             let movie = getMovie(rental),
@@ -66,11 +66,11 @@ function statement(customer, movies) {
         return result;
     }
 
-    function getHeader(customer) {
+    function getHeader(customer, format) {
         return `Rental Record for ${customer.name}\n`;
     }
 
-    function getFooter(customer) {
+    function getFooter(customer, format) {
         let totalAmount = getTotalRentalAmount(customer),
             totalFrequentRenterPoints = getTotalFrequentRenterPoints(customer),
             result = `Amount owed is ${totalAmount}\n`;
@@ -102,4 +102,4 @@ let movies = {
     // etc
 };
 
-console.log(statement(customer, movies));
+console.log(statement(customer, movies, 'txt'));

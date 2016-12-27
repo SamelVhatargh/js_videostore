@@ -87,10 +87,8 @@ function statement(customer, movies, format) {
 
         let result = `Amount owed is ${totalAmount}\n`;
         result += `You earned ${totalFrequentRenterPoints} frequent renter points\n`;
-        if (format === 'html') {
-            result = '<p>' + result + '</p>';
-        }
-        return result;
+
+        return format === 'html' ? tag('p', result) : result;
     }
 
     function tag(name, string) {

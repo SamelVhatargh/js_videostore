@@ -1,13 +1,9 @@
 "use strict";
 
 function statement(customer, movies) {
-    let result = getHeader(customer);
-
-    result += getRentalsPresentation(customer);
-
-    result += getFooter(customer);
-
-    return result;
+    return getHeader(customer)
+        + getRentalsPresentation(customer)
+        + getFooter(customer);
 
     function getMovie(rental) {
         return movies[rental.movieID];

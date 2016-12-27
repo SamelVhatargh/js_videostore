@@ -6,7 +6,7 @@ function statement(customer, movies) {
     let result = `Rental Record for ${customer.name}\n`;
     for (let rental of customer.rentals) {
         let movie = getMovie(rental);
-        let thisRentalAmount = getRentalAmount(rental);
+        let currentRentalAmount = getRentalAmount(rental);
 
         //add frequent renter points
         totalFrequentRenterPoints++;
@@ -14,8 +14,8 @@ function statement(customer, movies) {
         if (movie.code === "new" && rental.days > 2) totalFrequentRenterPoints++;
 
         //print figures for this rental
-        result += `\t${movie.title}\t${thisRentalAmount}\n`;
-        totalAmount += thisRentalAmount;
+        result += `\t${movie.title}\t${currentRentalAmount}\n`;
+        totalAmount += currentRentalAmount;
     }
     // add footer lines
     result += `Amount owed is ${totalAmount}\n`;

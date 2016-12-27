@@ -60,17 +60,17 @@ function statement(customer, movies, format) {
         let result = '';
         for (let rental of customer.rentals) {
             let movie = getMovie(rental),
-                currentRentalAmount = getRentalAmount(rental);
+                currentRentalAmount = getRentalAmount(rental),
+                moviePresentation = `\t${movie.title}\t${currentRentalAmount}\n`;
+
             if (format === 'html') {
-                result += `<li>${movie.title}\t${currentRentalAmount}</li>\n`;
+                result += tag('li', moviePresentation)
             } else {
-                result += `\t${movie.title}\t${currentRentalAmount}\n`;
+                result += moviePresentation;
             }
         }
-        if (format === 'html') {
-            result = '<ul>\n' + result + '</ul>\n';
-        }
-        return result;
+
+        return format === 'html' ? tag('ul', result) : result;
     }
 
     function getHeader(customer, format) {

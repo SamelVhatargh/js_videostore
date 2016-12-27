@@ -74,11 +74,8 @@ function statement(customer, movies, format) {
     }
 
     function getHeader(customer, format) {
-        let result = `Rental Record for ${customer.name}`;
-        if (format === 'html') {
-            result = '<h1>' + result + '</h1>';
-        }
-        return result + `\n`;
+        let result = `Rental Record for ${customer.name}\n`;
+        return format === 'html' ? tag('h1', result) : result;
     }
 
     function getFooter(customer, format) {

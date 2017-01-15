@@ -1,5 +1,7 @@
 'use strict';
 
+let Rental = require('./rental');
+
 class Customer {
     constructor(data) {
         this._data = data;
@@ -10,7 +12,7 @@ class Customer {
     }
 
     get rentals() {
-        return this._data.rentals;
+        return this._data.rentals.map(rental => new Rental(rental));
     }
 }
 

@@ -8,28 +8,28 @@ class Statement {
     }
 
     render(format) {
-        return this.getHeader(this._customer, format)
-            + this.getRentalsPresentation(this._customer, format)
-            + this.getFooter(this._customer, format);
+        return this.getHeader(format)
+            + this.getRentalsPresentation(format)
+            + this.getFooter(format);
         }
 
-    getFooter(customer, format) {
-        let totalAmount = customer.totalRentalAmount,
-            totalFrequentRenterPoints = customer.totalFrequentRenterPoints;
+    getFooter(format) {
+        let totalAmount = this._customer.totalRentalAmount,
+            totalFrequentRenterPoints = this._customer.totalFrequentRenterPoints;
         let result = `Amount owed is ${totalAmount}\n`;
         result += `You earned ${totalFrequentRenterPoints} frequent renter points\n`;
 
         return format === 'html' ? tag('p', result) : result;
     }
 
-    getHeader(customer, format) {
-        let result = `Rental Record for ${customer.name}\n`;
+    getHeader(format) {
+        let result = `Rental Record for ${this._customer.name}\n`;
         return format === 'html' ? tag('h1', result) : result;
     }
 
-    getRentalsPresentation(customer, format) {
+    getRentalsPresentation(format) {
         let result = '';
-        for (let rental of customer.rentals) {
+        for (let rental of this._customer.rentals) {
             let movie = rental.movie,
                 currentRentalAmount = rental.amount,
                 moviePresentation = `\t${movie.title}\t${currentRentalAmount}\n`;

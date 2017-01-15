@@ -6,7 +6,7 @@ class Statement {
         this._customer = customer;
     }
 
-    render(format) {
+    render() {
         return this.getHeader()
             + this.getRentalsPresentation()
             + this.getFooter();

@@ -31,5 +31,5 @@ let movies = {
 let txtStatement = new Statement(new Customer(customer, movies));
 let htmlStatement = new HtmlStatement(new Customer(customer, movies));
 
-console.log(txtStatement.render('txt'));
-console.log(htmlStatement.render('html'));
+console.log(txtStatement.render());
+console.log(htmlStatement.render());

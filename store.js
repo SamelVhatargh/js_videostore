@@ -2,12 +2,8 @@
 
 let Customer = require('./customer');
 
-function getMovie(rental) {
-    return movies[rental.movieID];
-}
-
 function getRentalAmount(rental) {
-    let movie = getMovie(rental);
+    let movie = rental.movie;
     let thisRentalAmount = 0;
     // determine amount for each movie
     switch (movie.code) {
@@ -40,7 +36,7 @@ function getTotalRentalAmount(customer)
 }
 
 function getFrequentRenterPoints(rental) {
-    let movie = getMovie(rental);
+    let movie = rental.movie;
     return (movie.code === "new" && rental.days > 2) ? 2 : 1;
 }
 
@@ -54,7 +50,7 @@ function getTotalFrequentRenterPoints(customer)
 }
 
 function statement(customerArg, format) {
-    let customer = new Customer(customerArg);
+    let customer = new Customer(customerArg, movies);
     return getHeader(customer, format)
         + getRentalsPresentation(customer, format)
         + getFooter(customer, format);
@@ -62,7 +58,7 @@ function statement(customerArg, format) {
     function getRentalsPresentation(customer, format) {
         let result = '';
         for (let rental of customer.rentals) {
-            let movie = getMovie(rental),
+            let movie = rental.movie,
                 currentRentalAmount = getRentalAmount(rental),
                 moviePresentation = `\t${movie.title}\t${currentRentalAmount}\n`;
 

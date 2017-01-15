@@ -1,5 +1,7 @@
 'use strict';
 
+let tag = require('./tag');
+
 class Statement {
     constructor(customer, format) {
         this._customer = customer;
@@ -42,10 +44,6 @@ class Statement {
             return format === 'html' ? tag('p', result) : result;
         }
     }
-}
-
-function tag(name, string) {
-    return `<` + name + `>` + string + `</` + name +  `>`;
 }
 
 module.exports = Statement;

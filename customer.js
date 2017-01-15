@@ -23,6 +23,14 @@ class Customer {
         }
         return totalAmount;
     }
+
+    get totalFrequentRenterPoints() {
+        let totalFrequentRenterPoints = 0;
+        for (let rental of this.rentals) {
+            totalFrequentRenterPoints += rental.frequentRenterPoints;
+        }
+        return totalFrequentRenterPoints;
+    }
 }
 
 module.exports = Customer;

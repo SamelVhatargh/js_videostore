@@ -1,48 +1,8 @@
 "use strict";
 
 let Customer = require('./customer');
+let Statement = require('./statement');
 
-function statement(customerArg, format) {
-    let customer = new Customer(customerArg, movies);
-    return getHeader(customer, format)
-        + getRentalsPresentation(customer, format)
-        + getFooter(customer, format);
-
-    function getRentalsPresentation(customer, format) {
-        let result = '';
-        for (let rental of customer.rentals) {
-            let movie = rental.movie,
-                currentRentalAmount = rental.amount,
-                moviePresentation = `\t${movie.title}\t${currentRentalAmount}\n`;
-
-            if (format === 'html') {
-                result += tag('li', moviePresentation)
-            } else {
-                result += moviePresentation;
-            }
-        }
-
-        return format === 'html' ? tag('ul', result) : result;
-    }
-
-    function getHeader(customer, format) {
-        let result = `Rental Record for ${customer.name}\n`;
-        return format === 'html' ? tag('h1', result) : result;
-    }
-
-    function getFooter(customer, format) {
-        let totalAmount = customer.totalRentalAmount,
-            totalFrequentRenterPoints = customer.totalFrequentRenterPoints;
-        let result = `Amount owed is ${totalAmount}\n`;
-        result += `You earned ${totalFrequentRenterPoints} frequent renter points\n`;
-
-        return format === 'html' ? tag('p', result) : result;
-    }
-}
-
-function tag(name, string) {
-    return `<` + name + `>` + string + `</` + name +  `>`;
-}
 
 let customer = {
     name: "martin",
@@ -67,5 +27,8 @@ let movies = {
     // etc
 };
 
-console.log(statement(customer, 'txt'));
-console.log(statement(customer, 'html'));
+let txtStatement = new Statement(new Customer(customer, movies), 'txt');
+let htmlStatement = new Statement(new Customer(customer, movies), 'html');
+
+console.log(txtStatement.render());
+console.log(htmlStatement.render());

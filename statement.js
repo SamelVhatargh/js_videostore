@@ -8,18 +8,32 @@ class Statement {
     }
 
     render(format) {
-        return this.getHeader(format)
-            + this.getRentalsPresentation(format)
-            + this.getFooter(format);
+        if (format === 'txt') {
+            return this.getHeader(format)
+                + this.getRentalsPresentation(format)
+                + this.getFooter();
+        } else {
+            return this.getHeader(format)
+                + this.getRentalsPresentation(format)
+                + this.getHtmlFooter();
         }
+    }
 
-    getFooter(format) {
+    getFooter() {
         let totalAmount = this._customer.totalRentalAmount,
             totalFrequentRenterPoints = this._customer.totalFrequentRenterPoints;
         let result = `Amount owed is ${totalAmount}\n`;
         result += `You earned ${totalFrequentRenterPoints} frequent renter points\n`;
 
-        return format === 'html' ? tag('p', result) : result;
+        return result;
+    }
+
+    getHtmlFooter() {
+        let totalAmount = this._customer.totalRentalAmount,
+            totalFrequentRenterPoints = this._customer.totalFrequentRenterPoints;
+        let result = `Amount owed is ${totalAmount}\n`;
+        result += `You earned ${totalFrequentRenterPoints} frequent renter points\n`;
+        return tag('p', result);
     }
 
     getHeader(format) {

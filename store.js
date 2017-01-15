@@ -115,5 +115,5 @@ let movies = {
     // etc
 };
 
-console.log(statement(customer, movies, 'txt'));
-console.log(statement(customer, movies, 'html'));
+console.log(statement(customer, 'txt'));
+console.log(statement(customer, 'html'));

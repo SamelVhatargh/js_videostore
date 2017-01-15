@@ -1,7 +1,7 @@
 'use strict';
 
 
-class Statement {
+class TxtStatement {
     constructor(customer) {
         this._customer = customer;
     }
@@ -36,4 +36,4 @@ class Statement {
     }
 }
 
-module.exports = Statement;
+module.exports = TxtStatement;

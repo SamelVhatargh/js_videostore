@@ -1,7 +1,7 @@
 "use strict";
 
 let Customer = require('./customer');
-let Statement = require('./statement');
+let TxtStatement = require('./txtstatement');
 let HtmlStatement = require('./htmlstatement');
 
 
@@ -28,7 +28,7 @@ let movies = {
     // etc
 };
 
-let txtStatement = new Statement(new Customer(customer, movies));
+let txtStatement = new TxtStatement(new Customer(customer, movies));
 let htmlStatement = new HtmlStatement(new Customer(customer, movies));
 
 console.log(txtStatement.render());

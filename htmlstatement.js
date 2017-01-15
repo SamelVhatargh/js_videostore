@@ -1,9 +1,9 @@
 'use strict';
 
-let Statement = require('./statement');
+let TxtStatement = require('./txtstatement');
 let tag = require('./tag');
 
-class HtmlStatement extends Statement {
+class HtmlStatement extends TxtStatement {
 
     getFooter() {
         let totalAmount = this._customer.totalRentalAmount,

@@ -8,14 +8,9 @@ class Statement {
     }
 
     render(format) {
-        return getHeader(this._customer, format)
+        return this.getHeader(this._customer, format)
             + this.getRentalsPresentation(this._customer, format)
             + getFooter(this._customer, format);
-
-        function getHeader(customer, format) {
-            let result = `Rental Record for ${customer.name}\n`;
-            return format === 'html' ? tag('h1', result) : result;
-        }
 
         function getFooter(customer, format) {
             let totalAmount = customer.totalRentalAmount,
@@ -25,6 +20,11 @@ class Statement {
 
             return format === 'html' ? tag('p', result) : result;
         }
+    }
+
+    getHeader(customer, format) {
+        let result = `Rental Record for ${customer.name}\n`;
+        return format === 'html' ? tag('h1', result) : result;
     }
 
     getRentalsPresentation(customer, format) {

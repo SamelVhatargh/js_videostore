@@ -1,60 +1,60 @@
 "use strict";
 
-function statement(customer, movies, format) {
+function getMovie(rental) {
+    return movies[rental.movieID];
+}
+
+function getRentalAmount(rental) {
+    let movie = getMovie(rental);
+    let thisRentalAmount = 0;
+    // determine amount for each movie
+    switch (movie.code) {
+        case "regular":
+            thisRentalAmount = 2;
+            if (rental.days > 2) {
+                thisRentalAmount += (rental.days - 2) * 1.5;
+            }
+            break;
+        case "new":
+            thisRentalAmount = rental.days * 3;
+            break;
+        case "childrens":
+            thisRentalAmount = 1.5;
+            if (rental.days > 3) {
+                thisRentalAmount += (rental.days - 3) * 1.5;
+            }
+            break;
+    }
+    return thisRentalAmount;
+}
+
+function getTotalRentalAmount(customer)
+{
+    let totalAmount = 0;
+    for (let rental of customer.rentals) {
+        totalAmount += getRentalAmount(rental);
+    }
+    return totalAmount;
+}
+
+function getFrequentRenterPoints(rental) {
+    let movie = getMovie(rental);
+    return (movie.code === "new" && rental.days > 2) ? 2 : 1;
+}
+
+function getTotalFrequentRenterPoints(customer)
+{
+    let totalFrequentRenterPoints = 0;
+    for (let rental of customer.rentals) {
+        totalFrequentRenterPoints += getFrequentRenterPoints(rental);
+    }
+    return totalFrequentRenterPoints;
+}
+
+function statement(customer, format) {
     return getHeader(customer, format)
         + getRentalsPresentation(customer, format)
         + getFooter(customer, format);
-
-    function getMovie(rental) {
-        return movies[rental.movieID];
-    }
-
-    function getRentalAmount(rental) {
-        let movie = getMovie(rental);
-        let thisRentalAmount = 0;
-        // determine amount for each movie
-        switch (movie.code) {
-            case "regular":
-                thisRentalAmount = 2;
-                if (rental.days > 2) {
-                    thisRentalAmount += (rental.days - 2) * 1.5;
-                }
-                break;
-            case "new":
-                thisRentalAmount = rental.days * 3;
-                break;
-            case "childrens":
-                thisRentalAmount = 1.5;
-                if (rental.days > 3) {
-                    thisRentalAmount += (rental.days - 3) * 1.5;
-                }
-                break;
-        }
-        return thisRentalAmount;
-    }
-
-    function getTotalRentalAmount(customer)
-    {
-        let totalAmount = 0;
-        for (let rental of customer.rentals) {
-            totalAmount += getRentalAmount(rental);
-        }
-        return totalAmount;
-    }
-
-    function getFrequentRenterPoints(rental) {
-        let movie = getMovie(rental);
-        return (movie.code === "new" && rental.days > 2) ? 2 : 1;
-    }
-
-    function getTotalFrequentRenterPoints(customer)
-    {
-        let totalFrequentRenterPoints = 0;
-        for (let rental of customer.rentals) {
-            totalFrequentRenterPoints += getFrequentRenterPoints(rental);
-        }
-        return totalFrequentRenterPoints;
-    }
 
     function getRentalsPresentation(customer, format) {
         let result = '';
@@ -87,10 +87,10 @@ function statement(customer, movies, format) {
 
         return format === 'html' ? tag('p', result) : result;
     }
+}
 
-    function tag(name, string) {
-        return `<` + name + `>` + string + `</` + name +  `>`;
-    }
+function tag(name, string) {
+    return `<` + name + `>` + string + `</` + name +  `>`;
 }
 
 let customer = {

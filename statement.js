@@ -3,15 +3,14 @@
 let tag = require('./tag');
 
 class Statement {
-    constructor(customer, format) {
+    constructor(customer) {
         this._customer = customer;
-        this._format = format;
     }
 
-    render() {
-        return getHeader(this._customer, this._format)
-            + getRentalsPresentation(this._customer, this._format)
-            + getFooter(this._customer, this._format);
+    render(format) {
+        return getHeader(this._customer, format)
+            + getRentalsPresentation(this._customer, format)
+            + getFooter(this._customer, format);
 
         function getRentalsPresentation(customer, format) {
             let result = '';

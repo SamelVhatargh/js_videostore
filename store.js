@@ -27,8 +27,7 @@ let movies = {
     // etc
 };
 
-let txtStatement = new Statement(new Customer(customer, movies), 'txt');
-let htmlStatement = new Statement(new Customer(customer, movies), 'html');
+let statement = new Statement(new Customer(customer, movies));
 
-console.log(txtStatement.render());
-console.log(htmlStatement.render());
+console.log(statement.render('txt'));
+console.log(statement.render('html'));

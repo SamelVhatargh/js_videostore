@@ -9,11 +9,11 @@ class Statement {
 
     render(format) {
         if (format === 'txt') {
-            return this.getHeader(format)
+            return this.getHeader()
                 + this.getRentalsPresentation(format)
                 + this.getFooter();
         } else {
-            return this.getHeader(format)
+            return this.getHtmlHeader()
                 + this.getRentalsPresentation(format)
                 + this.getHtmlFooter();
         }
@@ -36,9 +36,13 @@ class Statement {
         return tag('p', result);
     }
 
-    getHeader(format) {
+    getHeader() {
+        return `Rental Record for ${this._customer.name}\n`;
+    }
+
+    getHtmlHeader() {
         let result = `Rental Record for ${this._customer.name}\n`;
-        return format === 'html' ? tag('h1', result) : result;
+        return tag('h1', result);
     }
 
     getRentalsPresentation(format) {

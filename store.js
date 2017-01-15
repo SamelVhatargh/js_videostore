@@ -1,5 +1,19 @@
 "use strict";
 
+class Customer {
+    constructor(data) {
+        this._data = data;
+    }
+
+    get name() {
+        return this._data.name;
+    }
+
+    get rentals() {
+        return this._data.rentals;
+    }
+}
+
 function getMovie(rental) {
     return movies[rental.movieID];
 }
@@ -51,7 +65,8 @@ function getTotalFrequentRenterPoints(customer)
     return totalFrequentRenterPoints;
 }
 
-function statement(customer, format) {
+function statement(customerArg, format) {
+    let customer = new Customer(customerArg);
     return getHeader(customer, format)
         + getRentalsPresentation(customer, format)
         + getFooter(customer, format);

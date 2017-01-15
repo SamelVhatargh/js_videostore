@@ -2,16 +2,11 @@
 
 let Customer = require('./customer');
 
-function getFrequentRenterPoints(rental) {
-    let movie = rental.movie;
-    return (movie.code === "new" && rental.days > 2) ? 2 : 1;
-}
-
 function getTotalFrequentRenterPoints(customer)
 {
     let totalFrequentRenterPoints = 0;
     for (let rental of customer.rentals) {
-        totalFrequentRenterPoints += getFrequentRenterPoints(rental);
+        totalFrequentRenterPoints += rental.frequentRenterPoints;
     }
     return totalFrequentRenterPoints;
 }

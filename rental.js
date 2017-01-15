@@ -40,6 +40,10 @@ class Rental {
         }
         return thisRentalAmount;
     }
+
+    get frequentRenterPoints() {
+        return (this.movie.code === "new" && this.days > 2) ? 2 : 1;
+    }
 }
 
 module.exports = Rental;

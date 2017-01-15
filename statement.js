@@ -9,25 +9,8 @@ class Statement {
 
     render(format) {
         return getHeader(this._customer, format)
-            + getRentalsPresentation(this._customer, format)
+            + this.getRentalsPresentation(this._customer, format)
             + getFooter(this._customer, format);
-
-        function getRentalsPresentation(customer, format) {
-            let result = '';
-            for (let rental of customer.rentals) {
-                let movie = rental.movie,
-                    currentRentalAmount = rental.amount,
-                    moviePresentation = `\t${movie.title}\t${currentRentalAmount}\n`;
-
-                if (format === 'html') {
-                    result += tag('li', moviePresentation)
-                } else {
-                    result += moviePresentation;
-                }
-            }
-
-            return format === 'html' ? tag('ul', result) : result;
-        }
 
         function getHeader(customer, format) {
             let result = `Rental Record for ${customer.name}\n`;
@@ -42,6 +25,23 @@ class Statement {
 
             return format === 'html' ? tag('p', result) : result;
         }
+    }
+
+    getRentalsPresentation(customer, format) {
+        let result = '';
+        for (let rental of customer.rentals) {
+            let movie = rental.movie,
+                currentRentalAmount = rental.amount,
+                moviePresentation = `\t${movie.title}\t${currentRentalAmount}\n`;
+
+            if (format === 'html') {
+                result += tag('li', moviePresentation)
+            } else {
+                result += moviePresentation;
+            }
+        }
+
+        return format === 'html' ? tag('ul', result) : result;
     }
 }
 

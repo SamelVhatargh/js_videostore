@@ -2,35 +2,11 @@
 
 let Customer = require('./customer');
 
-function getRentalAmount(rental) {
-    let movie = rental.movie;
-    let thisRentalAmount = 0;
-    // determine amount for each movie
-    switch (movie.code) {
-        case "regular":
-            thisRentalAmount = 2;
-            if (rental.days > 2) {
-                thisRentalAmount += (rental.days - 2) * 1.5;
-            }
-            break;
-        case "new":
-            thisRentalAmount = rental.days * 3;
-            break;
-        case "childrens":
-            thisRentalAmount = 1.5;
-            if (rental.days > 3) {
-                thisRentalAmount += (rental.days - 3) * 1.5;
-            }
-            break;
-    }
-    return thisRentalAmount;
-}
-
 function getTotalRentalAmount(customer)
 {
     let totalAmount = 0;
     for (let rental of customer.rentals) {
-        totalAmount += getRentalAmount(rental);
+        totalAmount += rental.amount;
     }
     return totalAmount;
 }
@@ -59,7 +35,7 @@ function statement(customerArg, format) {
         let result = '';
         for (let rental of customer.rentals) {
             let movie = rental.movie,
-                currentRentalAmount = getRentalAmount(rental),
+                currentRentalAmount = rental.amount,
                 moviePresentation = `\t${movie.title}\t${currentRentalAmount}\n`;
 
             if (format === 'html') {

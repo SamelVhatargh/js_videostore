@@ -2,15 +2,6 @@
 
 let Customer = require('./customer');
 
-function getTotalRentalAmount(customer)
-{
-    let totalAmount = 0;
-    for (let rental of customer.rentals) {
-        totalAmount += rental.amount;
-    }
-    return totalAmount;
-}
-
 function getFrequentRenterPoints(rental) {
     let movie = rental.movie;
     return (movie.code === "new" && rental.days > 2) ? 2 : 1;
@@ -54,7 +45,7 @@ function statement(customerArg, format) {
     }
 
     function getFooter(customer, format) {
-        let totalAmount = getTotalRentalAmount(customer),
+        let totalAmount = customer.totalRentalAmount,
             totalFrequentRenterPoints = getTotalFrequentRenterPoints(customer);
 
         let result = `Amount owed is ${totalAmount}\n`;

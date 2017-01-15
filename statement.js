@@ -10,16 +10,16 @@ class Statement {
     render(format) {
         return this.getHeader(this._customer, format)
             + this.getRentalsPresentation(this._customer, format)
-            + getFooter(this._customer, format);
-
-        function getFooter(customer, format) {
-            let totalAmount = customer.totalRentalAmount,
-                totalFrequentRenterPoints = customer.totalFrequentRenterPoints;
-            let result = `Amount owed is ${totalAmount}\n`;
-            result += `You earned ${totalFrequentRenterPoints} frequent renter points\n`;
-
-            return format === 'html' ? tag('p', result) : result;
+            + this.getFooter(this._customer, format);
         }
+
+    getFooter(customer, format) {
+        let totalAmount = customer.totalRentalAmount,
+            totalFrequentRenterPoints = customer.totalFrequentRenterPoints;
+        let result = `Amount owed is ${totalAmount}\n`;
+        result += `You earned ${totalFrequentRenterPoints} frequent renter points\n`;
+
+        return format === 'html' ? tag('p', result) : result;
     }
 
     getHeader(customer, format) {

@@ -10,11 +10,11 @@ class Statement {
     render(format) {
         if (format === 'txt') {
             return this.getHeader()
-                + this.getRentalsPresentation(format)
+                + this.getRentalsPresentation()
                 + this.getFooter();
         } else {
             return this.getHtmlHeader()
-                + this.getRentalsPresentation(format)
+                + this.getRentalsHtmlPresentation()
                 + this.getHtmlFooter();
         }
     }
@@ -45,21 +45,25 @@ class Statement {
         return tag('h1', result);
     }
 
-    getRentalsPresentation(format) {
+    getRentalsPresentation() {
+        let result = '';
+        for (let rental of this._customer.rentals) {
+            let movie = rental.movie,
+                currentRentalAmount = rental.amount;
+            result += `\t${movie.title}\t${currentRentalAmount}\n`;
+        }
+        return result;
+    }
+
+    getRentalsHtmlPresentation() {
         let result = '';
         for (let rental of this._customer.rentals) {
             let movie = rental.movie,
                 currentRentalAmount = rental.amount,
                 moviePresentation = `\t${movie.title}\t${currentRentalAmount}\n`;
-
-            if (format === 'html') {
-                result += tag('li', moviePresentation)
-            } else {
-                result += moviePresentation;
-            }
+            result += tag('li', moviePresentation)
         }
-
-        return format === 'html' ? tag('ul', result) : result;
+        return tag('ul', result);
     }
 }
 
